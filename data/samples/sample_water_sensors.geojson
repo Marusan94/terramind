@@ -1,0 +1,58 @@
+{
+  "type": "FeatureCollection",
+  "name": "terramind_sample_water_stations",
+  "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "station_id": "WS-01",
+        "name": "Upper Watershed Monitoring Point",
+        "river": "Rio Fucha",
+        "ph": 7.2,
+        "turbidity_ntu": 8.4,
+        "dissolved_oxygen_mg_l": 6.8,
+        "temperature_c": 14.2,
+        "status": "optimal"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-74.052, 4.582]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "station_id": "WS-02",
+        "name": "Mid-Basin Urban Interface",
+        "river": "Rio Fucha",
+        "ph": 6.8,
+        "turbidity_ntu": 18.9,
+        "dissolved_oxygen_mg_l": 4.5,
+        "temperature_c": 15.6,
+        "status": "warning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-74.081, 4.610]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "station_id": "WS-03",
+        "name": "Lower Basin Confluence",
+        "river": "Rio Bogota Tributary",
+        "ph": 6.4,
+        "turbidity_ntu": 34.1,
+        "dissolved_oxygen_mg_l": 2.8,
+        "temperature_c": 16.8,
+        "status": "critical"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-74.135, 4.638]
+      }
+    }
+  ]
+}
