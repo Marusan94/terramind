@@ -136,7 +136,7 @@ const AirMap = memo(function AirMap({
   const [coords, setCoords] = useState({ lat: 6.247, lon: -75.567, zoom: 11 });
   const [coordsVisible, setCoordsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [is3D, setIs3D] = useState(true);
+  const [is3D, setIs3D] = useState(false);
   const [mapReady, setMapReady] = useState(false);
   const [radarOn, setRadarOn] = useState(false);
 
@@ -292,7 +292,7 @@ const AirMap = memo(function AirMap({
       },
       center: [-75.567, 6.247],
       zoom: 11,
-      pitch: 55,
+      pitch: 0,
       attributionControl: false,
       antialias: true,
       minZoom: 8,
@@ -317,11 +317,11 @@ const AirMap = memo(function AirMap({
     map.on('load', () => {
       setIsLoading(false);
 
+      // Modo inicial 2D: el terreno solo se activa con el toggle 3D
       try {
         if (!map.getSource('terrain')) {
           map.addSource('terrain', getTerrainSource());
         }
-        map.setTerrain({ source: 'terrain', exaggeration: 1.2 });
       } catch (err) {
         console.warn('Terrain unavailable, continuing in 2D:', err);
       }

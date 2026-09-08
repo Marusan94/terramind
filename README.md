@@ -50,7 +50,7 @@
 ## ⚡ Uso local (2 minutos, sin backend)
 
 ```bash
-git clone https://github.com/Marusan94/terramind.git
+git clone https://github.com/Marusan94/Terramind.git
 cd terramind/apps/web
 npm install
 npm run dev

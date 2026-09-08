@@ -6,14 +6,14 @@
   "description": "Terramind - AI-powered environmental intelligence platform with 3D geospatial visualization for Valle de Aburrá, Colombia",
   "author": "Santiago Marulanda <santiago.marulandal@udea.edu.co>",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/Marusan94/terramind",
+  "homepage": "https://github.com/Marusan94/Terramind",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Marusan94/terramind.git",
+    "url": "https://github.com/Marusan94/Terramind.git",
     "directory": "apps/web"
   },
   "bugs": {
-    "url": "https://github.com/Marusan94/terramind/issues"
+    "url": "https://github.com/Marusan94/Terramind/issues"
   },
   "keywords": [
     "terramind",
