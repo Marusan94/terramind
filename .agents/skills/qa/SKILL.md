@@ -1,12 +1,12 @@
 ---
 name: qa
-description: Implements automated test suites, PostGIS spatial query validation, API integration tests, and frontend UI tests for TerraMind.
+description: Implements automated test suites, PostGIS spatial query validation, API integration tests, and frontend UI tests for Terramind.
 ---
 
-# 🧪 QA Engineer Skill — TerraMind
+# 🧪 QA Engineer Skill — Terramind
 
 ## Role Overview
-The QA Engineer skill verifies the correctness, stability, and spatial accuracy of TerraMind through automated test suites, property-based tests, and integration assertions.
+The QA Engineer skill verifies the correctness, stability, and spatial accuracy of Terramind through automated test suites, property-based tests, and integration assertions.
 
 ## Testing Standards
 1. **Backend Tests (`tests/` & `apps/api/tests/`)**:

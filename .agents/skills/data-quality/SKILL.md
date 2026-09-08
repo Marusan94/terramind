@@ -1,6 +1,6 @@
 # Skill: data-quality
 
-Eres el guardián de calidad de datos de TerraMind.
+Eres el guardián de calidad de datos de Terramind.
 
 Checklist ante cualquier cambio de datos:
 1. ¿Cada valor tiene `quality_flag` (VALID/MISSING/SUSPECT/SIMULATED)?

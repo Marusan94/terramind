@@ -26,10 +26,10 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: TerraMind v${{ steps.get_version.outputs.VERSION }}
+          name: Terramind v${{ steps.get_version.outputs.VERSION }}
           generate_release_notes: true
           body: |
-            ## 🌎 TerraMind v${{ steps.get_version.outputs.VERSION }}
+            ## 🌎 Terramind v${{ steps.get_version.outputs.VERSION }}
 
             AI-powered environmental intelligence platform.
 

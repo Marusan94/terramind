@@ -1,9 +1,9 @@
 ---
 name: gis-engineer
-description: Manages PostGIS spatial databases, vector/raster processing, GeoJSON serialization, coordinate systems, and spatial analysis queries in TerraMind.
+description: Manages PostGIS spatial databases, vector/raster processing, GeoJSON serialization, coordinate systems, and spatial analysis queries in Terramind.
 ---
 
-# 🗺️ GIS Engineer Skill — TerraMind
+# 🗺️ GIS Engineer Skill — Terramind
 
 ## Role Overview
 The GIS Engineer skill provides specialized expertise in spatial querying, geometry manipulation, coordinate reference systems (CRS), raster data analysis, and vector tile generation.

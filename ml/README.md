@@ -1,4 +1,4 @@
-# 📈 TerraMind Machine Learning Models
+# 📈 Terramind Machine Learning Models
 
 This directory houses training routines, inference pipelines, and model evaluation modules:
 

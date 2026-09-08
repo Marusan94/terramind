@@ -10,7 +10,7 @@ import { ragService, initializeSampleDocuments, SearchResult } from '../services
 const API_KEY = (import.meta.env.VITE_OPENROUTER_API_KEY as string | undefined) || '';
 const BASE_URL = 'https://openrouter.ai/api/v1';
 
-const SYSTEM_PROMPT = `Eres TERMIND-AI, un asistente especializado en calidad del aire para Medellín y el Valle de Aburrá.
+const SYSTEM_PROMPT = `Eres Terramind AI, un asistente especializado en calidad del aire para Medellín y el Valle de Aburrá.
 
 EXPERTISE:
 1. **Calidad del Aire**: Interpreto datos de AQI, PM2.5, PM10, O3, NO2
@@ -49,7 +49,7 @@ export default function ChatBot({
     {
       id: 'welcome',
       role: 'assistant',
-      content: '🌍 Hola, soy **TerraMind AI**. Puedo ayudarte con:\n\n• Calidad del aire actual y pronóstico\n• Recomendaciones de salud\n• Políticas públicas de Medellín\n• Datos de documentos que subas\n\n**¿Qué te gustaría saber?**',
+      content: '🌍 Hola, soy **Terramind AI**. Puedo ayudarte con:\n\n• Calidad del aire actual y pronóstico\n• Recomendaciones de salud\n• Políticas públicas de Medellín\n• Datos de documentos que subas\n\n**¿Qué te gustaría saber?**',
     },
   ]);
   const [input, setInput] = useState('');
@@ -108,7 +108,7 @@ export default function ChatBot({
           'Authorization': `Bearer ${API_KEY}`,
           'Content-Type': 'application/json',
           'HTTP-Referer': window.location.origin,
-          'X-Title': 'TerraMind',
+          'X-Title': 'Terramind',
         },
         body: JSON.stringify({
           model: 'meta-llama/llama-3.1-8b-instruct:free',
@@ -193,7 +193,7 @@ export default function ChatBot({
       <div className="chat-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div className="chat-title">
           <div className="chat-title-icon">T</div>
-          TerraMind AI
+          Terramind AI
           <span style={{ fontSize: 9, color: 'var(--text-muted)', marginLeft: 8 }}>
             • Calidad del Aire • Políticas Públicas
           </span>

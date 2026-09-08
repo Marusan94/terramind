@@ -1,4 +1,4 @@
-# TerraMind — Product Requirements Document (PRD)
+# Terramind — Product Requirements Document (PRD)
 
 > Plataforma de inteligencia ambiental para el monitoreo de calidad del aire
 > en el Valle de Aburrá (Medellín, Colombia).
@@ -13,7 +13,7 @@ límites de la OMS. Los datos existen (red SIATA, modelos globales de calidad
 del aire) pero están dispersos, son técnicos y no ofrecen contexto accionable
 para decisiones cotidianas.
 
-TerraMind unifica en un solo "cockpit":
+Terramind unifica en un solo "cockpit":
 
 - **Monitoreo**: AQI en tiempo real por estación.
 - **Predicción**: pronóstico 48h y semanal con intervalo de confianza.
@@ -35,7 +35,7 @@ TerraMind unifica en un solo "cockpit":
 | Mapa principal (fullscreen) | Terreno 3D + edificios del Valle de Aburrá, 10 estaciones SIATA con marcador AQI coloreado, leyenda EPA, HUD de coordenadas, toggles de capas (Aire, Clima, Agua, Vegetación) | En integración: falta activar terreno 3D y capa de edificios |
 | Sidebar (260px) | Logo + badges AQI/PM2.5, toggles de capas, acciones (Dashboard, Alertas, Compartir), estado de conexión | Activa |
 | Dashboard (overlay modal) | Pestañas: Resumen, Territorio, Pronóstico, Estaciones, Científico. Gráficos AQI por estación, scatter AQI vs altitud, serie horaria con predicción, tabla OMS vs actual | Componente existe (`AirDashboard`) pero no conectado: falta CSS, overlay y gráficos |
-| Chat flotante | Conversación con TerraMind AI (OpenRouter), panel de documentos RAG (PDF/Excel/Word), sugerencias, acciones de generación (artículo, script, dataset) | Activo sin streaming; generadores pendientes |
+| Chat flotante | Conversación con Terramind AI (OpenRouter), panel de documentos RAG (PDF/Excel/Word), sugerencias, acciones de generación (artículo, script, dataset) | Activo sin streaming; generadores pendientes |
 
 ## 4. Capacidades por usuario
 

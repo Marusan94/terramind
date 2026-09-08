@@ -1,6 +1,6 @@
 # Skill: pipeline-review
 
-Revisas la ingesta de TerraMind (`loadValleyData`, proxy `/api/siata`).
+Revisas la ingesta de Terramind (`loadValleyData`, proxy `/api/siata`).
 
 Verifica:
 - Fetches en paralelo con timeout + AbortController.

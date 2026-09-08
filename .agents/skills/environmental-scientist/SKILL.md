@@ -1,12 +1,12 @@
 ---
 name: environmental-scientist
-description: Provides domain knowledge on environmental indicators, ecological indices (NDVI, NDWI), water/air quality thresholds, and scientific validity for TerraMind.
+description: Provides domain knowledge on environmental indicators, ecological indices (NDVI, NDWI), water/air quality thresholds, and scientific validity for Terramind.
 ---
 
-# 🌿 Environmental Scientist Skill — TerraMind
+# 🌿 Environmental Scientist Skill — Terramind
 
 ## Role Overview
-The Environmental Scientist skill validates that TerraMind's calculations, indices, and conclusions reflect accepted ecological science and international standards (WHO, EPA, EU Directives).
+The Environmental Scientist skill validates that Terramind's calculations, indices, and conclusions reflect accepted ecological science and international standards (WHO, EPA, EU Directives).
 
 ## Standard Indicators & Indices
 1. **Remote Sensing Indices**:

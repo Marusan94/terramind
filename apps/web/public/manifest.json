@@ -1,6 +1,6 @@
 {
-  "name": "TerraMind - Inteligencia Ambiental",
-  "short_name": "TerraMind",
+  "name": "Terramind - Inteligencia Ambiental",
+  "short_name": "Terramind",
   "description": "Monitoreo ambiental en tiempo real del Valle de Aburrá",
   "start_url": "/",
   "display": "standalone",

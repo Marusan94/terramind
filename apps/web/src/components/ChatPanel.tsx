@@ -10,7 +10,7 @@ import { ragService, initializeSampleDocuments, SearchResult } from '../services
 const API_KEY = (import.meta.env.VITE_OPENROUTER_API_KEY as string | undefined) || '';
 const BASE_URL = 'https://openrouter.ai/api/v1';
 
-const SYSTEM_PROMPT = `Eres **TerraMind AI**, un asistente especializado en calidad del aire para Medellín y el Valle de Aburrá, Colombia.
+const SYSTEM_PROMPT = `Eres **Terramind AI**, un asistente especializado en calidad del aire para Medellín y el Valle de Aburrá, Colombia.
 
 ## TU EXPERTISE:
 1. **Calidad del Aire**: Interpreto datos de AQI, PM2.5, PM10, O3, NO2, CO, SO2
@@ -59,7 +59,7 @@ export default function ChatPanel({
     {
       id: 'welcome',
       role: 'assistant',
-      content: `👋 Hola, soy **TerraMind AI**.
+      content: `👋 Hola, soy **Terramind AI**.
 
 Puedo ayudarte con:
 • Calidad del aire actual y recomendaciones
@@ -125,7 +125,7 @@ Puedo ayudarte con:
           'Authorization': `Bearer ${API_KEY}`,
           'Content-Type': 'application/json',
           'HTTP-Referer': window.location.origin || 'http://localhost:3000',
-          'X-Title': 'TerraMind',
+          'X-Title': 'Terramind',
         },
         body: JSON.stringify({
           model: 'meta-llama/llama-3.1-8b-instruct:free',
@@ -236,7 +236,7 @@ Puedo ayudarte con:
       >
         <div className="chat-header" onClick={onMinimize} style={{ cursor: 'pointer', borderRadius: 'var(--radius-lg)' }}>
           <span className="chat-header-icon">💬</span>
-          <span className="chat-header-title">TerraMind AI</span>
+          <span className="chat-header-title">Terramind AI</span>
           <div className="chat-header-controls">
             <button className="chat-control-btn" onClick={() => onMinimize()}>
               +
@@ -257,7 +257,7 @@ Puedo ayudarte con:
       {/* Header */}
       <div className="chat-header" onMouseDown={handleDragStart}>
         <span className="chat-header-icon">💬</span>
-        <span className="chat-header-title">TerraMind AI</span>
+        <span className="chat-header-title">Terramind AI</span>
         <div className="chat-header-controls">
           <button className="chat-control-btn" onClick={onMinimize} title="Minimizar">
             −

@@ -307,7 +307,7 @@ const AirMap = memo(function AirMap({
     map.on('error', (e: unknown) => {
       try {
         const err = e as { error?: { message?: string; status?: number }; sourceId?: string; tile?: { z?: number } };
-        console.warn('TerraMind map error:', err?.error?.message, '| source:', err?.sourceId, '| z:', err?.tile?.z);
+        console.warn('Terramind map error:', err?.error?.message, '| source:', err?.sourceId, '| z:', err?.tile?.z);
       } catch { /* noop */ }
     });
 

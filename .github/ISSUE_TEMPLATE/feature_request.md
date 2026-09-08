@@ -1,6 +1,6 @@
 ---
 name: Feature Request ✨
-description: Suggest a new feature for TerraMind
+description: Suggest a new feature for Terramind
 title: "[FEATURE] "
 labels: ["enhancement", "triage"]
 assignees: []

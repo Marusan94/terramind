@@ -1,6 +1,6 @@
 ---
 name: Bug Report 🐛
-description: Report a bug to help us improve TerraMind
+description: Report a bug to help us improve Terramind
 title: "[BUG] "
 labels: ["bug", "triage"]
 assignees: []
@@ -32,7 +32,7 @@ Si es posible, agrega screenshots o un GIF del bug.
 
 - **OS:** [ej: Windows 11, macOS 14]
 - **Navegador:** [ej: Chrome 120]
-- **Versión de TerraMind:** [ej: 0.2.0]
+- **Versión de Terramind:** [ej: 0.2.0]
 
 ## 📋 Información Adicional
 

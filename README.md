@@ -1,4 +1,4 @@
-﻿# 🌎 TerraMind — Environmental Intelligence Platform
+﻿# 🌎 Terramind — Environmental Intelligence Platform
 
 > **Plataforma fullstack de inteligencia ambiental para el Valle de Aburrá, Colombia: mapa 3D interactivo, datos en tiempo real de calidad del aire y clima, y copiloto conversacional con IA.**
 
@@ -16,17 +16,21 @@
 
 ## 📸 Capturas
 
-![TerraMind Mapa](./docs/screenshots/dashboard.png)
+![Terramind Mapa](./docs/screenshots/dashboard.png)
 
 *Mapa 3D del Valle de Aburrá con estaciones de calidad del aire (AQI/PM2.5), capas de clima y radar, y copiloto de IA integrado.*
 
-![TerraMind Dashboard](./docs/screenshots/dashboard-view.png)
+![Terramind Dashboard](./docs/screenshots/tab-pronostico.png)
 
-*Dashboard analítico: índice AQI, contaminantes (PM2.5, PM10, O₃, NO₂), histórico de 24 horas y acciones rápidas.*
+*Dashboard analítico: pronóstico 48 horas, pronóstico semanal por municipio y tabs por tema (territorio, estaciones, clima, agua, vegetación).*
+
+![Terramind Estaciones](./docs/screenshots/tab-estaciones.png)
+
+*Red de estaciones SIATA por municipio con AQI y contaminantes en tiempo real.*
 
 ## ✨ ¿Qué es?
 
-**TerraMind** es una aplicación fullstack que unifica visualización geoespacial 3D, redes de sensores en tiempo real e IA conversacional en un solo panel:
+**Terramind** es una aplicación fullstack que unifica visualización geoespacial 3D, redes de sensores en tiempo real e IA conversacional en un solo panel:
 
 - 🗺️ **Mapa 3D interactivo** (MapLibre GL + deck.gl): estaciones de calidad del aire, radar de lluvia, niveles de agua y vegetación
 - 🌫️ **Datos reales**: red de monitoreo SIATA, Open-Meteo y RainViewer, con modo demo sin conexión

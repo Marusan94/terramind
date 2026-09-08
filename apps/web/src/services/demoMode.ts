@@ -1,6 +1,6 @@
 /**
  * Demo Mode Service
- * Permite que TerraMind funcione completamente offline con datos simulados
+ * Permite que Terramind funcione completamente offline con datos simulados
  * cuando el backend no está disponible.
  */
 
@@ -93,7 +93,7 @@ export const DEMO_RESPONSES: Record<string, CopilotResponse> = {
     ]
   },
   default: {
-    summary: "🌎 **TerraMind Environmental Intelligence**\n\nEstoy en modo demostración. Puedo ayudarte con información sobre:\n\n• **Lluvias y radar meteorológico** (escribe 'lluvia')\n• **Calidad del aire PM2.5** (escribe 'aire')\n• **Monitoreo hidrológico** (escribe 'agua')\n• **Cobertura forestal** (escribe 'vegetacion')\n\nPregúntame sobre el Valle de Aburrá y sus condiciones ambientales actuales.",
+    summary: "🌎 **Terramind Environmental Intelligence**\n\nEstoy en modo demostración. Puedo ayudarte con información sobre:\n\n• **Lluvias y radar meteorológico** (escribe 'lluvia')\n• **Calidad del aire PM2.5** (escribe 'aire')\n• **Monitoreo hidrológico** (escribe 'agua')\n• **Cobertura forestal** (escribe 'vegetacion')\n\nPregúntame sobre el Valle de Aburrá y sus condiciones ambientales actuales.",
     confidence_score: 0.85,
     metrics: {
       mode: "demo",
@@ -101,7 +101,7 @@ export const DEMO_RESPONSES: Record<string, CopilotResponse> = {
     },
     sources: [
       {
-        title: "TerraMind - Sistema de Inteligencia Ambiental",
+        title: "Terramind - Sistema de Inteligencia Ambiental",
         doi_or_url: "https://github.com/Marusan94/terramind",
         confidence: "high"
       }

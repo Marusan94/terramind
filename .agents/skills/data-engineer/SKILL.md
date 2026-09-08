@@ -1,12 +1,12 @@
 ---
 name: data-engineer
-description: Builds ETL pipelines, real-time sensor streams, data normalization, Pathway/Pandas ingestion, and database migrations for TerraMind.
+description: Builds ETL pipelines, real-time sensor streams, data normalization, Pathway/Pandas ingestion, and database migrations for Terramind.
 ---
 
-# ⚙️ Data Engineer Skill — TerraMind
+# ⚙️ Data Engineer Skill — Terramind
 
 ## Role Overview
-The Data Engineer skill specializes in moving, cleaning, transforming, and loading environmental datasets from varied external sources (IoT sensors, satellite providers, government APIs) into TerraMind's storage engines.
+The Data Engineer skill specializes in moving, cleaning, transforming, and loading environmental datasets from varied external sources (IoT sensors, satellite providers, government APIs) into Terramind's storage engines.
 
 ## Key Pipelines
 1. **Sensor Ingestion**:

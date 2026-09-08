@@ -1,9 +1,9 @@
 ---
 name: ml-engineer
-description: Implements machine learning models for environmental forecasting, time-series analysis, satellite change detection, and computer vision in TerraMind.
+description: Implements machine learning models for environmental forecasting, time-series analysis, satellite change detection, and computer vision in Terramind.
 ---
 
-# 🤖 ML Engineer Skill — TerraMind
+# 🤖 ML Engineer Skill — Terramind
 
 ## Role Overview
 The ML Engineer skill guides the development, training, evaluation, and serving of predictive models in `ml/`, including regression for air/water parameters, time-series forecasting, and computer vision models.

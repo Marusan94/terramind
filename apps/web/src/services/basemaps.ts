@@ -48,7 +48,7 @@ export function getBasemapStyle(_theme: 'dark' | 'light' = 'dark') {
   
   return {
     version: 8 as const,
-    name: 'TerraMind',
+    name: 'Terramind',
     sources: {
       'osm': {
         type: 'raster' as const,
@@ -105,7 +105,7 @@ export function getBuildingsSource() {
 
 /**
  * Fill-extrusion layer spec for 3D buildings over the Valle de Aburrá.
- * Colors follow the TerraMind dark theme (muted violet-gray).
+ * Colors follow the Terramind dark theme (muted violet-gray).
  * Should be added on top of the raster basemap once the map is loaded.
  */
 export function getBuildingsLayer(): maplibregl.FillExtrusionLayerSpecification {

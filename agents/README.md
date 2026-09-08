@@ -1,4 +1,4 @@
-# 🧠 TerraMind Domain Agents
+# 🧠 Terramind Domain Agents
 
 This directory contains the autonomous domain agent implementations:
 

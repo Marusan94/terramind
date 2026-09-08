@@ -1,4 +1,4 @@
-# 🔄 TerraMind Data Pipelines & ETL
+# 🔄 Terramind Data Pipelines & ETL
 
 This directory contains real-time and batch ETL pipelines:
 

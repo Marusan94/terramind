@@ -1,9 +1,9 @@
 ---
 name: product-manager
-description: Defines feature requirements, user stories, environmental use cases, and product roadmap alignment for TerraMind.
+description: Defines feature requirements, user stories, environmental use cases, and product roadmap alignment for Terramind.
 ---
 
-# 📋 Product Manager Skill — TerraMind
+# 📋 Product Manager Skill — Terramind
 
 ## Role Overview
 The Product Manager skill guides the creation of Product Requirement Documents (PRDs), feature scoping, user personas, and prioritization of environmental intelligence features.

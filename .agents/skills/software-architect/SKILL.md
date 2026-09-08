@@ -1,9 +1,9 @@
 ---
 name: software-architect
-description: Enforces system architecture integrity, API contracts, PostGIS database schemas, OmniRoute model routing, and modular agent boundaries for TerraMind.
+description: Enforces system architecture integrity, API contracts, PostGIS database schemas, OmniRoute model routing, and modular agent boundaries for Terramind.
 ---
 
-# 🏛️ Software Architect Skill — TerraMind
+# 🏛️ Software Architect Skill — Terramind
 
 ## Role Overview
 The Software Architect skill ensures system consistency across frontend, backend, database, and AI agent layers. It prevents architectural drift and enforces the non-negotiable invariants defined in `AGENTS.md`.

@@ -1,5 +1,5 @@
 /**
- * TerraMind - Calidad del Aire Valle de Aburrá
+ * Terramind - Calidad del Aire Valle de Aburrá
  * Cursor-inspired dark theme
  */
 
@@ -142,7 +142,7 @@ export default function App() {
       <aside className={`sidebar ${sidebarOpen ? '' : 'collapsed'}`}>
         <div className="sidebar-header">
           <div className="sidebar-logo">T</div>
-          <div className="sidebar-title">TerraMind</div>
+          <div className="sidebar-title">Terramind</div>
           <div className="sidebar-badge">v1.0</div>
           <button className="sidebar-collapse" onClick={() => setSidebarOpen(false)} title="Ocultar panel">
             ◀

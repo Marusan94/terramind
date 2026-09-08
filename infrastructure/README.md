@@ -1,4 +1,4 @@
-# ☁️ TerraMind Infrastructure & Deployment
+# ☁️ Terramind Infrastructure & Deployment
 
 This directory contains container definitions and orchestration configurations:
 

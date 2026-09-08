@@ -13,7 +13,7 @@ export interface ChatMessage {
   content: string;
 }
 
-const SYSTEM_PROMPT = `Eres TerraMind, un copiloto ambiental IA experto en el Valle de Aburrá, Medellín, Colombia.
+const SYSTEM_PROMPT = `Eres Terramind, un copiloto ambiental IA experto en el Valle de Aburrá, Medellín, Colombia.
 
 Tienes acceso a datos en tiempo real de:
 - Calidad del aire (PM2.5, PM10, ozono, NO2)
@@ -50,7 +50,7 @@ export async function chat(
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
       'HTTP-Referer': typeof window !== 'undefined' ? window.location.origin : 'https://terramind.vercel.app',
-      'X-Title': 'TerraMind',
+      'X-Title': 'Terramind',
     },
     body: JSON.stringify({
       model,
@@ -83,7 +83,7 @@ export async function chatStream(
       'Authorization': `Bearer ${API_KEY}`,
       'Content-Type': 'application/json',
       'HTTP-Referer': typeof window !== 'undefined' ? window.location.origin : 'https://terramind.vercel.app',
-      'X-Title': 'TerraMind',
+      'X-Title': 'Terramind',
     },
     body: JSON.stringify({
       model,

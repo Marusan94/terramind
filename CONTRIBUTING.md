@@ -1,6 +1,6 @@
-﻿# 🤝 Contributing to TerraMind
+﻿# 🤝 Contributing to Terramind
 
-Welcome! We're excited that you're interested in contributing to TerraMind.
+Welcome! We're excited that you're interested in contributing to Terramind.
 
 ## Getting Started
 

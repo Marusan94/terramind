@@ -1,9 +1,9 @@
 ---
 name: ui-ux
-description: Guides frontend interface design, 3D MapLibre/deck.gl visualization, layer control panels, and the conversational AI copilot drawer in TerraMind.
+description: Guides frontend interface design, 3D MapLibre/deck.gl visualization, layer control panels, and the conversational AI copilot drawer in Terramind.
 ---
 
-# 🎨 UI/UX Engineer Skill — TerraMind
+# 🎨 UI/UX Engineer Skill — Terramind
 
 ## Role Overview
 The UI/UX skill guides development of the unified environmental dashboard, combining high-performance 3D mapping with a natural conversational drawer and intuitive environmental data visualizations.

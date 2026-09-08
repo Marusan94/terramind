@@ -1,4 +1,4 @@
-// TerraMind Service Worker
+// Terramind Service Worker
 const CACHE_NAME = 'terramind-v0.4';
 const TILE_CACHE = 'terramind-tiles-v1';
 const API_CACHE = 'terramind-api-v1';

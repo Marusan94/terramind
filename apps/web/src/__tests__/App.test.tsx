@@ -3,10 +3,10 @@ import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import App from '../App';
 
-describe('TerraMind App', () => {
-  it('renders the TerraMind brand', () => {
+describe('Terramind App', () => {
+  it('renders the Terramind brand', () => {
     const { container } = render(<App />);
-    expect(container.textContent).toContain('TerraMind');
+    expect(container.textContent).toContain('Terramind');
   });
 
   it('renders the sidebar layer toggles', () => {

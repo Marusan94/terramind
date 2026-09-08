@@ -1,6 +1,6 @@
-# 🔮 TerraMind Project Roadmap
+# 🔮 Terramind Project Roadmap
 
-This document outlines the phased development trajectory of **TerraMind**, from core foundational infrastructure to a fully autonomous environmental digital twin.
+This document outlines the phased development trajectory of **Terramind**, from core foundational infrastructure to a fully autonomous environmental digital twin.
 
 ---
 
@@ -46,4 +46,4 @@ This document outlines the phased development trajectory of **TerraMind**, from 
 - [ ] **Autonomous Satellite Harvester**: Automated scheduling of Sentinel-2 / Landsat optical and SAR imagery downloads.
 - [ ] **Decentralized Sensor Verification**: Cryptographic signing of environmental sensor streams for regulatory compliance.
 - [ ] **Mobile Field Inspection App**: Offline-first mobile app for park rangers and field researchers with GPS sync.
-- [ ] **TerraMind Plugin Marketplace**: Community-developed agents, ML models, and custom layer visualizers.
+- [ ] **Terramind Plugin Marketplace**: Community-developed agents, ML models, and custom layer visualizers.

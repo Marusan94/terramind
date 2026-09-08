@@ -162,7 +162,7 @@ async function streamGemini(
   return full;
 }
 
-const SYSTEM_PROMPT = `Eres **TerraMind AI**, asistente de calidad del aire para Medellín.
+const SYSTEM_PROMPT = `Eres **Terramind AI**, asistente de calidad del aire para Medellín.
 
 ESTILO (siempre): español, MÁXIMO 60 palabras, frases cortas, 2-4 viñetas
 si ayuda. Lenguaje simple y directo.
@@ -197,7 +197,7 @@ const GENERATORS: Record<GeneratorKind, Generator> = {
     mime: 'text/markdown',
     filename: () => `terramind-articulo-${Date.now()}.md`,
     hint: 'Tema del artículo sobre calidad del aire…',
-    system: `Eres un redactor científico de TerraMind. Genera un artículo breve y riguroso
+    system: `Eres un redactor científico de Terramind. Genera un artículo breve y riguroso
 sobre calidad del aire en el Valle de Aburrá (Medellín) a partir del tema del usuario.
 Responde SOLO en Markdown con: título, resumen (2-3 líneas), 3 secciones con subtítulos,
 una tabla de datos relevantes y 3 referencias formateadas. Máximo 500 palabras.`,
@@ -208,7 +208,7 @@ una tabla de datos relevantes y 3 referencias formateadas. Máximo 500 palabras.
     mime: 'text/x-python',
     filename: () => `terramind-script-${Date.now()}.py`,
     hint: 'Qué debe hacer el script Python…',
-    system: `Eres un ingeniero de datos de TerraMind. Genera un script Python funcional
+    system: `Eres un ingeniero de datos de Terramind. Genera un script Python funcional
 (relacionado con calidad del aire: AQI, PM2.5, Open-Meteo, gráficas) según el pedido.
 Responde SOLO con código Python, sin explicaciones fuera de comentarios del código.
 Si usas librerías externas, incluye el pip install como comentario en la primera línea.`,
@@ -219,7 +219,7 @@ Si usas librerías externas, incluye el pip install como comentario en la primer
     mime: 'text/csv',
     filename: () => `terramind-dataset-${Date.now()}.csv`,
     hint: 'Describe el dataset CSV que necesitas…',
-    system: `Eres un generador de datasets de TerraMind. Genera datos tabulares sintéticos
+    system: `Eres un generador de datasets de Terramind. Genera datos tabulares sintéticos
 pero realistas sobre calidad del aire del Valle de Aburrá según el pedido del usuario.
 Responde SOLO con CSV válido: primera fila de encabezados, 20 filas de datos,
 separador coma, decimales con punto. Sin texto adicional fuera del CSV.`,
@@ -259,7 +259,7 @@ interface AirSnapshot {
 }
 
 function welcomeText(d?: AirSnapshot): string {
-  return `👋 Hola, soy **TerraMind AI**.
+  return `👋 Hola, soy **Terramind AI**.
 
 Datos actuales: AQI ${d?.aqi || '--'}, PM2.5 ${d?.pm25 || '--'} µg/m³
 
@@ -352,11 +352,11 @@ export default function ChatWidget({
     if (!input.trim() || isLoading) return;
 
     if (!GEMINI_KEY && !GROQ_KEY && !OPENROUTER_KEY) {
-      console.error('TerraMind: ninguna API key configurada (VITE_GEMINI_API_KEY, VITE_GROQ_API_KEY o VITE_OPENROUTER_API_KEY).');
+      console.error('Terramind: ninguna API key configurada (VITE_GEMINI_API_KEY, VITE_GROQ_API_KEY o VITE_OPENROUTER_API_KEY).');
       setMessages(prev => [...prev, {
         id: Date.now().toString(),
         role: 'assistant',
-        content: '🤖 TerraMind AI temporalmente no disponible. Intenta de nuevo en unos minutos.',
+        content: '🤖 Terramind AI temporalmente no disponible. Intenta de nuevo en unos minutos.',
         error: true,
       }]);
       return;
@@ -468,7 +468,7 @@ export default function ChatWidget({
                 'Authorization': `Bearer ${OPENROUTER_KEY}`,
                 'Content-Type': 'application/json',
                 'HTTP-Referer': window.location.origin || 'http://localhost:3000',
-                'X-Title': 'TerraMind',
+                'X-Title': 'Terramind',
               },
               { model: attempt.model, messages, temperature, max_tokens: maxTokens, stream: true },
               onDelta,
@@ -478,7 +478,7 @@ export default function ChatWidget({
           break;
         } catch (e) {
           lastError = e;
-          console.warn(`TerraMind: falló ${attempt.provider}/${attempt.model}:`, e);
+          console.warn(`Terramind: falló ${attempt.provider}/${attempt.model}:`, e);
           if (e instanceof Error && /API error: (400|401|403)/.test(e.message)) {
             // Key rechazada: no sirve reintentar otros modelos del mismo proveedor
             skippedProviders.add(attempt.provider);
@@ -503,10 +503,10 @@ export default function ChatWidget({
       ));
 
     } catch (error) {
-      console.error('TerraMind: todos los proveedores de IA fallaron:', error);
+      console.error('Terramind: todos los proveedores de IA fallaron:', error);
       setMessages(prev => prev.map(m =>
         m.id === assistantId
-          ? { ...m, content: '🤖 TerraMind AI temporalmente no disponible. Intenta de nuevo en unos minutos.', error: true }
+          ? { ...m, content: '🤖 Terramind AI temporalmente no disponible. Intenta de nuevo en unos minutos.', error: true }
           : m
       ));
     }
@@ -569,7 +569,7 @@ export default function ChatWidget({
             }}>
               T
             </div>
-            <span className="chat-header-title">TerraMind AI</span>
+            <span className="chat-header-title">Terramind AI</span>
           </div>
           <button className="chat-close" onClick={() => setIsOpen(false)}>×</button>
         </div>

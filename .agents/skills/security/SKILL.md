@@ -1,9 +1,9 @@
 ---
 name: security
-description: Audits code for credential exposure, SQL injection in PostGIS spatial queries, prompt injection in agent workflows, and data sanitization for TerraMind.
+description: Audits code for credential exposure, SQL injection in PostGIS spatial queries, prompt injection in agent workflows, and data sanitization for Terramind.
 ---
 
-# 🛡️ Security Engineer Skill — TerraMind
+# 🛡️ Security Engineer Skill — Terramind
 
 ## Role Overview
 The Security Engineer skill protects the platform from common vulnerabilities, credential leakage, malicious GIS payload injection, and agent subversion.

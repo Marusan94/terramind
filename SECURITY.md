@@ -2,7 +2,7 @@
 
 ## Reporting Vulnerabilities
 
-The TerraMind team takes security and data sovereignty seriously. If you discover a security vulnerability within TerraMind or any of its submodules, **please do not report it in a public GitHub issue**.
+The Terramind team takes security and data sovereignty seriously. If you discover a security vulnerability within Terramind or any of its submodules, **please do not report it in a public GitHub issue**.
 
 Instead, please send an encrypted or direct disclosure email to:
 `security@terramind.org` (or contact the core maintainer privately via GitHub security advisories).

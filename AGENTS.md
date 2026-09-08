@@ -1,6 +1,6 @@
-# 🤖 AGENTS.md — TerraMind Multi-Agent Architecture & Engineering Contract
+# 🤖 AGENTS.md — Terramind Multi-Agent Architecture & Engineering Contract
 
-> **This document is the authoritative engineering contract for autonomous AI agents, coding assistants (Antigravity, OpenCode, Claude Code), and human developers working on TerraMind.**
+> **This document is the authoritative engineering contract for autonomous AI agents, coding assistants (Antigravity, OpenCode, Claude Code), and human developers working on Terramind.**
 >
 > All agents operating in this repository MUST read and adhere to the architectural invariants, conventions, and procedures described herein before introducing or modifying code.
 
@@ -8,7 +8,7 @@
 
 ## 1. Project Mission & Identity
 
-**TerraMind** is an open-source environmental intelligence platform that unifies 3D geospatial visualization, multi-agent AI reasoning, real-time sensor networks, and predictive machine learning into a single analytical cockpit.
+**Terramind** is an open-source environmental intelligence platform that unifies 3D geospatial visualization, multi-agent AI reasoning, real-time sensor networks, and predictive machine learning into a single analytical cockpit.
 
 ### Core Objectives
 1. **Explainable Environmental Insights**: Never produce hallucinations or ungrounded statistics. Every output must be traceable to a sensor observation, spatial feature, satellite scene, or peer-reviewed publication.
@@ -47,7 +47,7 @@ Agents must NOT deviate from these technical choices without an explicit Archite
 
 ## 3. The Multi-Agent Agency (`.agents/skills/`)
 
-TerraMind operates with a federated swarm of specialized skills located in `.agents/skills/`:
+Terramind operates with a federated swarm of specialized skills located in `.agents/skills/`:
 
 | Skill / Role | Directory | Key Responsibilities |
 | :--- | :--- | :--- |

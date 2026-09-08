@@ -1,4 +1,4 @@
-# 00 — Visión de producto (TerraMind)
+# 00 — Visión de producto (Terramind)
 
 **Problema:** el ciudadano del Valle de Aburrá no sabe "¿cómo está el aire HOY?"
 de un vistazo: datos dispersos (SIATA, AMVA), tecnicismos y sin contexto.

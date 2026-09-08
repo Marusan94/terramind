@@ -1,9 +1,9 @@
 ---
 name: research-agent
-description: Powers RAG over scientific literature, arXiv, PubMed, environmental impact PDFs, and extracts verified DOI citations for TerraMind.
+description: Powers RAG over scientific literature, arXiv, PubMed, environmental impact PDFs, and extracts verified DOI citations for Terramind.
 ---
 
-# 🔬 Research Agent Skill — TerraMind
+# 🔬 Research Agent Skill — Terramind
 
 ## Role Overview
 The Research Agent skill manages document ingestion, semantic chunking, embedding generation, and contextual retrieval for academic papers, municipal impact assessments, and environmental reports.
