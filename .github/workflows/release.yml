@@ -1,0 +1,49 @@
+name: Release Management
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: TerraMind v${{ steps.get_version.outputs.VERSION }}
+          generate_release_notes: true
+          body: |
+            ## 🌎 TerraMind v${{ steps.get_version.outputs.VERSION }}
+
+            AI-powered environmental intelligence platform.
+
+            ### Features
+            - 3D geospatial visualization of Valle de Aburrá
+            - Real-time weather radar (SIATA)
+            - Air quality monitoring (PM2.5)
+            - Hydrological tracking
+            - Multi-agent AI system
+
+            ### Installation
+            See [README.md](./README.md) for setup instructions.
+          files: |
+            apps/web/dist/**
+            apps/api/dist/**
+          draft: false
+          prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'beta') }}

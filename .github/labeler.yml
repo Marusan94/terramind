@@ -1,0 +1,37 @@
+# Label definitions for PRs
+
+frontend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/**'
+
+backend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/api/**'
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '*.md'
+          - 'docs/**'
+
+devops:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/**'
+          - 'docker-compose.yml'
+
+ai:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/llm.py'
+          - '**/omniroute*'
+          - '**/agents/**'
+
+tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.test.*'
+          - '**/*.spec.*'
+          - '**/tests/**'

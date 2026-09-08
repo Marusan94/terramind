@@ -1,287 +1,279 @@
-import React, { useState } from "react";
-import { 
-  Compass, 
-  Layers, 
-  Wind, 
-  Droplet, 
-  Trees, 
-  Send, 
-  Sparkles,
-  Mountain,
-  CloudRain
-} from "lucide-react";
-import { MapViewport, type RainCellInfo, type StationInfo } from "./components/MapViewport";
+/**
+ * TerraMind - Calidad del Aire Valle de Aburrá
+ * Cursor-inspired dark theme
+ */
 
-interface CopilotSource {
-  title: string;
-  doi_or_url: string;
-  confidence: string;
+import { useState, useEffect } from 'react';
+import AirMap from './components/AirMap';
+import AirDashboard from './components/AirDashboard';
+import AirQualityOverview from './components/AirQualityOverview';
+import ChatWidget from './components/ChatWidget';
+import { AIR_QUALITY_STATIONS, generateRealisticData, calculateAQI } from './data/stations';
+import { loadValleyData, ValleyData } from './services/valley';
+import { LayerState, ALL_LAYERS_ON } from './layers';
+import './styles/theme.css';
+
+if ('serviceWorker' in navigator) {
+  if (import.meta.env.PROD) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  } else {
+    // En desarrollo: eliminar SWs viejos que servirían caché obsoleta
+    navigator.serviceWorker.getRegistrations()
+      .then(regs => regs.forEach(r => r.unregister()))
+      .catch(() => {});
+  }
 }
 
-interface CopilotMessage {
-  sender: "system" | "user" | "agent";
-  text: string;
-  confidence?: number;
-  sources?: CopilotSource[];
-}
+export default function App() {
+  const [layers, setLayers] = useState<LayerState>(ALL_LAYERS_ON);
 
-export function App() {
-  const [query, setQuery] = useState("");
-  const [rainLayerActive, setRainLayerActive] = useState(true);
-  const [terrainActive, setTerrainActive] = useState(true);
-  const [buildingsActive, setBuildingsActive] = useState(true);
-  const [airActive, setAirActive] = useState(true);
-  const [waterActive, setWaterActive] = useState(true);
-  const [forestActive, setForestActive] = useState(true);
-  const [messages, setMessages] = useState<CopilotMessage[]>([
-    {
-      sender: "system",
-      text: "Bienvenido a TerraMind — Valle de Aburrá 3D. Hemos activado la capa de Nubes y Radar de Lluvia (SIATA). Puedes ver las células de precipitación sobre las laderas o hacer clic en la tormenta para ver reflectividad (dBZ) e impacto hídrico."
-    }
-  ]);
-  const [loading, setLoading] = useState(false);
+  const [stats, setStats] = useState({
+    avgAqi: 0,
+    avgPm25: 0,
+    avgPm10: 0,
+    category: '',
+    color: '',
+    generatedAt: 0,
+    source: 'Cargando…',
+    dataDate: '',
+  });
+  const [valley, setValley] = useState<ValleyData | null>(null);
 
-  const handleSend = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!query.trim() || loading) return;
+  const [selectedStation, setSelectedStation] = useState<any>(null);
+  void selectedStation; // reserved
 
-    const userText = query;
-    setQuery("");
-    setMessages((prev) => [...prev, { sender: "user", text: userText }]);
-    setLoading(true);
-
+  const [dashboardOpen, setDashboardOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [commandMode, setCommandMode] = useState(() => {
     try {
-      const res = await fetch("/api/v1/copilot/query", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: userText, bbox: [-75.65, 6.12, -75.48, 6.38] })
-      });
-      const data = await res.json();
-      setMessages((prev) => [
-        ...prev,
-        { 
-          sender: "agent", 
-          text: data.summary,
-          confidence: data.confidence_score,
-          sources: data.sources
-        }
-      ]);
+      return localStorage.getItem('terramind-theme') === 'command';
     } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "agent",
-          text: "Pronóstico Hidrometeorológico Valle de Aburrá: El radar meteorológico detecta nubes densas de desarrollo vertical (Cumulonimbus) sobre la ladera oriental (Santa Elena). Se proyecta lluvia moderada a fuerte (35-50 mm/h) en el centro de Medellín durante los próximos 45 minutos. Riesgo de aumento de caudal en la quebrada Santa Elena.",
-          confidence: 0.94,
-          sources: [
-            {
-              title: "Radar Meteorológico SIATA & Sistema de Alerta Temprana",
-              doi_or_url: "https://siata.gov.co",
-              confidence: "high"
-            }
-          ]
-        }
-      ]);
-    } finally {
-      setLoading(false);
+      return false;
     }
+  });
+
+  useEffect(() => {
+    document.body.classList.toggle('command-mode', commandMode);
+    try {
+      localStorage.setItem('terramind-theme', commandMode ? 'command' : 'cursor');
+    } catch {
+      // almacenamiento no disponible: el modo igual aplica en sesión
+    }
+  }, [commandMode]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setDashboardOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  useEffect(() => {
+    // 1) Respaldo sincrónico inmediato (simulado) para pintar ya
+    const stationData = AIR_QUALITY_STATIONS.map(station => {
+      const data = generateRealisticData(station);
+      return { data };
+    });
+
+    const avgAqi = Math.round(stationData.reduce((s, d) => {
+      const aqiInfo = calculateAQI(d.data.pm25, d.data.pm10, d.data.o3, d.data.no2);
+      return s + aqiInfo.aqi;
+    }, 0) / stationData.length);
+
+    const avgPm25 = Math.round(stationData.reduce((s, d) => s + d.data.pm25, 0) / stationData.length);
+    const avgPm10 = Math.round(stationData.reduce((s, d) => s + d.data.pm10, 0) / stationData.length * 10) / 10;
+    const avgInfo = calculateAQI(avgPm25, avgPm25 * 1.5, 45, 20);
+
+    setStats({
+      avgAqi,
+      avgPm25,
+      avgPm10,
+      category: avgInfo.category,
+      color: avgInfo.color,
+      generatedAt: Date.now(),
+      source: 'Simulado (demo)',
+      dataDate: 'simulación local',
+    });
+
+    // 2) Datos reales en segundo plano (SIATA + Open-Meteo); si falla, queda el respaldo
+    let cancelled = false;
+    loadValleyData().then(v => {
+      if (cancelled || !v.stations.length) return;
+      setValley(v);
+      const valid = v.stations.filter(s => s.quality !== 'MISSING');
+      const base = valid.length ? valid : v.stations;
+      const aqi = Math.round(base.reduce((s, s2) => s + s2.aqi, 0) / base.length);
+      const pm25 = Math.round(base.reduce((s, s2) => s + s2.pm25, 0) / base.length * 10) / 10;
+      const pm10 = Math.round(base.reduce((s, s2) => s + s2.pm10, 0) / base.length * 10) / 10;
+      const info = calculateAQI(pm25, pm10, 45, 20);
+      setStats({
+        avgAqi: aqi,
+        avgPm25: pm25,
+        avgPm10: pm10,
+        category: info.category,
+        color: info.color,
+        generatedAt: v.updatedAt,
+        source: v.source,
+        dataDate: v.dataDate,
+      });
+    }).catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
+
+  const toggleLayer = (key: keyof LayerState) => {
+    setLayers(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const handleSelectStation = (station: StationInfo) => {
-    setMessages((prev) => [
-      ...prev,
-      {
-        sender: "agent",
-        text: `📍 Estación Seleccionada: ${station.name}\n• Municipio: ${station.municipality}\n• Altura: ${station.elevation_m} m s.n.m.\n• Aire (PM2.5): ${station.pm25}\n• Turbidez Río: ${station.turbidity}\n• Oxígeno Disuelto: ${station.do}\n• Estado Ecológico: ${station.status.toUpperCase()}`,
-        confidence: 0.98,
-        sources: [
-          {
-            title: "Red de Monitoreo Ambiental Valle de Aburrá",
-            doi_or_url: "https://siata.gov.co",
-            confidence: "high"
-          }
-        ]
-      }
-    ]);
+  const getAqiBadgeClass = (aqi: number) => {
+    if (aqi <= 50) return 'good';
+    if (aqi <= 100) return 'moderate';
+    if (aqi <= 150) return 'warning';
+    return 'danger';
   };
 
-  const handleSelectRainCell = (cell: RainCellInfo) => {
-    setMessages((prev) => [
-      ...prev,
-      {
-        sender: "agent",
-        text: `⛈️ Alerta de Lluvia y Nubes — ${cell.intensity}:\n\n• Reflectividad Radar: ${cell.dbz}\n• Tasa de Precipitación: ${cell.rate}\n• Altura de Cima: ${cell.top_height || '9,500 m'}\n• Probabilidad: ${cell.probability}\n• Alerta Hidrológica: ${cell.alerta || 'Monitoreo preventivo en laderas'}`,
-        confidence: 0.96,
-        sources: [
-          {
-            title: "Radar Meteorológico de Alta Resolución SIATA",
-            doi_or_url: "https://siata.gov.co",
-            confidence: "high"
-          }
-        ]
-      }
-    ]);
-  };
+  const hasRainAlert = false;
 
   return (
-    <div className="flex h-screen w-screen bg-slate-950 text-slate-100 font-sans overflow-hidden">
-      {/* LEFT DRAWER: Environmental Layers */}
-      <aside className="w-80 border-r border-slate-800 bg-slate-900/95 flex flex-col p-4 z-20 backdrop-blur">
-        <div className="flex items-center gap-2 mb-6">
-          <Compass className="h-6 w-6 text-emerald-400" />
-          <h1 className="text-xl font-bold tracking-tight text-white">TerraMind</h1>
-          <span className="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 ml-auto border border-emerald-500/30">
-            Valle de Aburrá
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase text-slate-400 mb-3 tracking-wider">
-          <Layers className="h-4 w-4" /> Capas Ambientales
-        </div>
-
-        <div className="space-y-2 flex-1 overflow-y-auto pr-1">
-          {/* NUEVA CAPA: NUBES Y RADAR DE LLUVIA */}
-          <label className="flex items-center justify-between p-3 rounded-lg bg-cyan-950/40 border border-cyan-500/40 hover:border-cyan-400 transition cursor-pointer shadow-lg">
-            <span className="flex items-center gap-2 text-sm font-semibold text-cyan-200">
-              <CloudRain className="h-4 w-4 text-cyan-400 animate-pulse" /> Nubes & Radar Lluvia
-            </span>
-            <input 
-              type="checkbox" 
-              checked={rainLayerActive}
-              onChange={(e) => setRainLayerActive(e.target.checked)}
-              className="rounded border-slate-700 text-cyan-500 focus:ring-cyan-400 accent-cyan-400 w-4 h-4 cursor-pointer" 
-            />
-          </label>
-
-          <label className="flex items-center justify-between p-3 rounded-lg bg-slate-800/60 border border-slate-700/60 hover:border-slate-600 transition cursor-pointer">
-            <span className="flex items-center gap-2 text-sm font-medium">
-              <Mountain className="h-4 w-4 text-emerald-400" /> Relieve 3D Cordillera Central
-            </span>
-            <input
-              type="checkbox"
-              checked={terrainActive}
-              onChange={(e) => setTerrainActive(e.target.checked)}
-              className="rounded border-slate-700 text-emerald-500 focus:ring-emerald-400"
-            />
-          </label>
-
-          <label className="flex items-center justify-between p-3 rounded-lg bg-slate-800/60 border border-slate-700/60 hover:border-slate-600 transition cursor-pointer">
-            <span className="flex items-center gap-2 text-sm font-medium">
-              <Wind className="h-4 w-4 text-amber-400" /> Red de Aire PM2.5 (SIATA)
-            </span>
-            <input
-              type="checkbox"
-              checked={airActive}
-              onChange={(e) => setAirActive(e.target.checked)}
-              className="rounded border-slate-700 text-amber-500 focus:ring-amber-400"
-            />
-          </label>
-
-          <label className="flex items-center justify-between p-3 rounded-lg bg-slate-800/60 border border-slate-700/60 hover:border-slate-600 transition cursor-pointer">
-            <span className="flex items-center gap-2 text-sm font-medium">
-              <Droplet className="h-4 w-4 text-cyan-400" /> Eje Hidrológico Río Medellín
-            </span>
-            <input
-              type="checkbox"
-              checked={waterActive}
-              onChange={(e) => setWaterActive(e.target.checked)}
-              className="rounded border-slate-700 text-cyan-500 focus:ring-cyan-400"
-            />
-          </label>
-
-          <label className="flex items-center justify-between p-3 rounded-lg bg-slate-800/60 border border-slate-700/60 hover:border-slate-600 transition cursor-pointer">
-            <span className="flex items-center gap-2 text-sm font-medium">
-              <Trees className="h-4 w-4 text-emerald-300" /> Reservas Forestales
-            </span>
-            <input
-              type="checkbox"
-              checked={forestActive}
-              onChange={(e) => setForestActive(e.target.checked)}
-              className="rounded border-slate-700 text-emerald-500 focus:ring-emerald-400"
-            />
-          </label>
-        </div>
-
-        <div className="pt-4 border-t border-slate-800 text-xs text-slate-400 space-y-1">
-          <div>Valle de Aburrá: 1,400m - 3,100m s.n.m.</div>
-          <div className="text-cyan-400 font-mono text-[11px]">Radar: Banda C Doppler (SIATA)</div>
-        </div>
-      </aside>
-
-      {/* CENTER: 3D Geospatial Map Viewport (Valle de Aburrá) */}
-      <main className="flex-1 relative bg-slate-950 overflow-hidden">
-        <MapViewport 
-          rainLayerActive={rainLayerActive}
-          terrainActive={terrainActive}
-          buildingsActive={buildingsActive}
-          airActive={airActive}
-          waterActive={waterActive}
-          forestActive={forestActive}
-          onToggleRain={setRainLayerActive}
-          onToggleTerrain={setTerrainActive}
-          onToggleBuildings={setBuildingsActive}
-          onSelectStation={handleSelectStation} 
-          onSelectRainCell={handleSelectRainCell}
-        />
-      </main>
-
-      {/* RIGHT DRAWER: AI Copilot */}
-      <aside className="w-96 border-l border-slate-800 bg-slate-900/95 flex flex-col z-20 backdrop-blur">
-        <div className="p-4 border-b border-slate-800 flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-emerald-400" />
-          <h2 className="font-semibold text-white">Copiloto Ambiental</h2>
-          <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 ml-auto font-mono text-cyan-400">
-            Radar Meteorológico
-          </span>
-        </div>
-
-        {/* Message Feed */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 text-sm">
-          {messages.map((m, i) => (
-            <div
-              key={i}
-              className={`p-3 rounded-xl ${
-                m.sender === "user"
-                  ? "bg-emerald-600/20 border border-emerald-500/30 text-emerald-100 ml-6"
-                  : "bg-slate-800/80 border border-slate-700/70 text-slate-200 mr-4"
-              }`}
-            >
-              <p className="leading-relaxed whitespace-pre-line">{m.text}</p>
-              {m.confidence && (
-                <div className="mt-2 pt-2 border-t border-slate-700/50 flex items-center justify-between text-xs text-cyan-400 font-mono">
-                  <span>Confianza: {(m.confidence * 100).toFixed(0)}%</span>
-                  <span className="text-slate-400">SIATA Radar</span>
-                </div>
-              )}
-            </div>
-          ))}
-          {loading && (
-            <div className="p-3 rounded-xl bg-slate-800/60 border border-slate-700 text-xs text-slate-400 animate-pulse">
-              Consultando radar meteorológico y celdas convectivas...
-            </div>
-          )}
-        </div>
-
-        {/* Query Input Box */}
-        <form onSubmit={handleSend} className="p-4 border-t border-slate-800 flex gap-2">
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Pregunta sobre la lluvia, nubes o quebradas..."
-            className="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 transition"
-          />
-          <button
-            type="submit"
-            disabled={loading}
-            className="p-2 bg-cyan-500 text-slate-950 rounded-lg hover:bg-cyan-400 transition disabled:opacity-50"
-          >
-            <Send className="h-4 w-4" />
+    <div className="app">
+      {/* Sidebar */}
+      <aside className={`sidebar ${sidebarOpen ? '' : 'collapsed'}`}>
+        <div className="sidebar-header">
+          <div className="sidebar-logo">T</div>
+          <div className="sidebar-title">TerraMind</div>
+          <div className="sidebar-badge">v1.0</div>
+          <button className="sidebar-collapse" onClick={() => setSidebarOpen(false)} title="Ocultar panel">
+            ◀
           </button>
-        </form>
+        </div>
+
+        {/* Status Badges */}
+        <div className="badges">
+          <div className={`badge ${getAqiBadgeClass(stats.avgAqi)}`}>
+            🌫 AQI {stats.avgAqi}
+          </div>
+          <div className="badge">
+            🌫 {stats.avgPm25} µg/m³
+          </div>
+          {hasRainAlert && <div className="badge danger">⚠️ Lluvia</div>}
+        </div>
+        <div className="sidebar-source">
+          Fuente: {stats.source} · {stats.dataDate}
+        </div>
+
+        {/* Layers */}
+        <div className="section">Capas</div>
+        <div className="layers">
+          <div 
+            className={`layer ${layers.airQuality ? 'active' : ''}`}
+            onClick={() => toggleLayer('airQuality')}
+          >
+            <span className="layer-icon">🌫</span>
+            <span className="layer-name">Calidad del Aire</span>
+            <span className="layer-check" />
+          </div>
+          <div 
+            className={`layer ${layers.weather ? 'active' : ''}`}
+            onClick={() => toggleLayer('weather')}
+          >
+            <span className="layer-icon">🌧</span>
+            <span className="layer-name">Clima y Radar</span>
+            <span className="layer-check" />
+          </div>
+          <div 
+            className={`layer ${layers.water ? 'active' : ''}`}
+            onClick={() => toggleLayer('water')}
+          >
+            <span className="layer-icon">💧</span>
+            <span className="layer-name">Niveles de Agua</span>
+            <span className="layer-check" />
+          </div>
+          <div 
+            className={`layer ${layers.vegetation ? 'active' : ''}`}
+            onClick={() => toggleLayer('vegetation')}
+          >
+            <span className="layer-icon">🌳</span>
+            <span className="layer-name">Vegetación</span>
+            <span className="layer-check" />
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="actions">
+          <button className="btn primary" onClick={() => setDashboardOpen(true)}>
+            📊 Ver Dashboard
+          </button>
+          <button className="btn">
+            🔔 Configurar Alertas
+          </button>
+          <button className="btn">
+            📤 Compartir
+          </button>
+          <button
+            className={`btn ${commandMode ? 'primary' : ''}`}
+            onClick={() => setCommandMode(v => !v)}
+            title="Alternar estética de centro de comando"
+          >
+            🎬 Modo comando
+          </button>
+        </div>
+
+        {/* Connection Status */}
+        <div className="connection">
+          <div className="connection-status">
+            <div className="status-dot" />
+            <span>Conectado • {valley?.stations.length ?? AIR_QUALITY_STATIONS.length} estaciones</span>
+          </div>
+        </div>
       </aside>
+
+      {/* Main Content - Map */}
+      <main className="main">
+        <div className="cmd-title">TERRAMIND · VALLE DE ABURRÁ · MONITOREO AMBIENTAL</div>
+        {!sidebarOpen && (
+          <button className="sidebar-fab" onClick={() => setSidebarOpen(true)} title="Mostrar panel">
+            ☰
+          </button>
+        )}
+        <AirMap
+          onStationClick={(station) => setSelectedStation(station)}
+          layers={layers}
+          stations={valley?.stations}
+          gauges={valley?.gauges ?? []}
+          parks={valley?.parks ?? []}
+          weather={valley?.weather}
+        />
+
+        {/* Resumen "¿Cómo está el aire HOY?" sobre el mapa */}
+        {stats.generatedAt > 0 && (
+          <AirQualityOverview
+            aqi={stats.avgAqi}
+            pm25={stats.avgPm25}
+            pm10={stats.avgPm10}
+            category={stats.category}
+            color={stats.color}
+            updatedAt={stats.generatedAt}
+            source={stats.source}
+            dataDate={stats.dataDate}
+          />
+        )}
+
+        {/* Chat Widget */}
+        <ChatWidget airQualityData={{
+          aqi: stats.avgAqi,
+          pm25: stats.avgPm25,
+          category: stats.category,
+          source: stats.source,
+          updatedAt: stats.generatedAt,
+          stations: valley?.stations.length ?? AIR_QUALITY_STATIONS.length,
+          live: valley?.live ?? undefined,
+        }} />
+
+        {/* Dashboard overlay */}
+        {dashboardOpen && <AirDashboard onClose={() => setDashboardOpen(false)} layers={layers} valley={valley} />}
+      </main>
     </div>
   );
 }
-
-export default App;
