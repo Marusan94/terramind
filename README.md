@@ -14,11 +14,15 @@
   <img src="https://img.shields.io/badge/CI-GitHub_Actions-2088FF?style=flat-square&logo=github-actions&logoColor=white" alt="CI" />
 </p>
 
-## 📸 Captura
+## 📸 Capturas
 
-![TerraMind Dashboard](./docs/screenshots/dashboard.png)
+![TerraMind Mapa](./docs/screenshots/dashboard.png)
 
 *Mapa 3D del Valle de Aburrá con estaciones de calidad del aire (AQI/PM2.5), capas de clima y radar, y copiloto de IA integrado.*
+
+![TerraMind Dashboard](./docs/screenshots/dashboard-view.png)
+
+*Dashboard analítico: índice AQI, contaminantes (PM2.5, PM10, O₃, NO₂), histórico de 24 horas y acciones rápidas.*
 
 ## ✨ ¿Qué es?
 
